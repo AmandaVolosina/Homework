@@ -1,30 +1,46 @@
-#Python funcion to find the Max of three nr
-def max_of_two(x, y):
-    if x > y:
-        return x
-    return y
-def max_of_three(x, y, z):
-    return max_of_two(x, max_of_two(y, z))
-print(max_of_three(8, 65, 987))
+#Third practical task
+def sum_numbers(*numbers: tuple) -> float:
+    """Sum numbers """
+    return sum(numbers)
+print(sum_numbers(1, 2, 3))
+print(sum_numbers(8, 20,2,))
+print(sum_numbers(12.5, 3.147, 98.1))
+print(sum_numbers(1.1, 2.2, 5.5))
 
-#Python program to reverse a string
-txt = "This is homework" [: : -1]
-print(txt)
+#Audit system task
 
-#If variables are equal, print message, otherwise, different message.
-x = 78
-y = 90
-if x == y :
-    print("Variables are the same")
-else:
-    print("Variables are not the same")
+from os import path, makedirs, listdir
+from datetime import date
 
-#Program to ask for name and age for nightclub
-print("Your name please")
-name = input()
-age = int(input("Your age please"))
-timeleft = 18 - age
-if age < 18 :
-    print("You cannot enter the club, please go home")
-else:
-    print("Welcome to the party!")
+name = input("Name: ")
+surname = input("Surname: ")
+personal_id_number = int(input("ID number: "))
+
+file_created = ""
+today_date = date.today().strftime("%Y-%m-%d")
+
+
+def create_folder():
+    if not path.exists(today_date):
+        makedirs(today_date)
+
+def create_file():
+    global file_created
+    file_created = path.join(today_date, f"{personal_id_number}.txt")
+
+
+def write_file_info():
+    with open(file_created, "w") as f:
+        f.write(f"Name: {name}\nSurname: {surname}\nPersonal ID number: {personal_id_number}\n")
+
+
+def output_to_screen():
+    for file in listdir(today_date):
+        with open(path.join(today_date, file), "r") as f:
+            print(f.read())
+
+
+create_folder()
+create_file()
+write_file_info()
+output_to_screen()
